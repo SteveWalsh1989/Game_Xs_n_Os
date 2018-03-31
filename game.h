@@ -68,6 +68,9 @@ void print_status(struct game*);                        // displays current game
 
 void display_board_positions() ;                        // display board positions
 
+void get_row_col(int* , int*)  ;                        // store player move
+
+void process_move(struct game* , int* , int* );         // process users move
 
 #endif //NOUGHTS_AND_CROSSES_GAME_GAME_H
 
