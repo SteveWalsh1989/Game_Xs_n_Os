@@ -43,7 +43,7 @@ void play_game()
 
     initialise_game (p_game_info, "    John", "Annie");                                 // initialise the game
 
-    int numMoves = 0;
+    int numMoves = 0;                                                                   // stores number of moves to check if a draw
 
         while (!p_game_info->finished) {                                                // keep looping while game is not finished
 
@@ -84,7 +84,6 @@ void play_game()
                         printf("\n\n\tInvalid Move: Space already taken \n\n");         // print invalid move message to user
                     }
                  }
-
             check_winner(p_game_info);                                                  // check if there was a winner
 
             if((p_game_info->status == P1_TURN) || (p_game_info->status == P2_TURN) ) { // if still players turn
@@ -96,16 +95,12 @@ void play_game()
                     p_game_info->status = DRAW;                                         // sets status of game to draw
 
                     p_game_info->finished=True;                                         // sets status of finished to true
-
                 }
-
             }
     }
-    display_board(p_game_info->board);                                            // display board
+    display_board(p_game_info->board);                                                  // display board
 
-    print_status(p_game_info);                                                    // display game state
-
-
+    print_status(p_game_info);                                                          // display game state
 }
 /**
  * initialise_game
@@ -143,11 +138,7 @@ void initialise_game(struct game* p_game_info, char* name1, char* name2)
             p_game_info->board[innerIndex][outerIndex] = SPACE;             // sets selected area to be Empty space
         }
     }
-
-
 }
-
-
 /**
  * draw_banner
  *
@@ -221,9 +212,7 @@ void print_status(struct game* p_game_info) {
     }
 
     printf("\n\n");                                                                         // create new line for readability
-
 }
-
 /**
  * display_board_positions
  *
@@ -232,7 +221,7 @@ void print_status(struct game* p_game_info) {
 void display_board_positions (){
 
     printf("\n   -------------------       ");
-    printf("\n      Select a Move          ");                                 // prints banner
+    printf("\n      Select a Move          ");
     printf("\n   -------------------       ");
 
     printf("\n\t  0  |  1  |  2   " );
@@ -245,11 +234,8 @@ void display_board_positions (){
 
     printf("\n\t  6  |  7  |  8   " );
 
-    printf("\n\n");                                                            // create new line
-
-
+    printf("\n\n");
 }
-
 /**
  * get_row_col
  *
@@ -283,15 +269,11 @@ void get_row_col(int* row, int*column){
             printf("\n\n\tInvalid Move: Enter number between 0 - 8 and press 'Enter' \n\n"); // print invalid move message to user
         }
     }
-
     *row    = move/3;                                                   // sets row value
 
     *column = move%3;                                                   // sets column value
 
-
-
 }
-
 /**
  * process_move
  *
@@ -312,7 +294,6 @@ void process_move(struct game* game_info, int* row, int* col){
         game_info->board[*row][*col] = O_SYMBOL;                   // set position to 0
     }
 }
-
 /**
  * check_winner
  *

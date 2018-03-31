@@ -18,22 +18,25 @@
 
 #define NOUGHTS_AND_CROSSES_GAME_GAME_H
 
-
+typedef enum Bool boolean;
 
 //-------------------------------------
 //   Define Constants
 //-------------------------------------
-#define MAX_NAME_LEN 50
-#define SPACE '-'
-#define X_SYMBOL 'X'
-#define O_SYMBOL '0'
+#define MAX_NAME_LEN 50                               // max length of player name
 
-typedef enum Bool boolean;
+#define SPACE '-'                                     // character for empty position on board
+
+#define X_SYMBOL 'X'                                  // Player 1's character
+
+#define O_SYMBOL '0'                                  // Player 2's character
+
+
 
 //-------------------------------------
 //        Lists
 //-------------------------------------
-enum Bool   { False, True };
+enum Bool   { False, True };                           // allow boolean values
 
 enum status { P1_TURN ,                                // if Player 1's turn
 
@@ -47,7 +50,7 @@ enum status { P1_TURN ,                                // if Player 1's turn
             };
 
 //-------------------------------------
-//        Structure
+//       Game Structure
 //-------------------------------------
 struct game {                                           // stores game structure
 
@@ -61,7 +64,7 @@ struct game {                                           // stores game structure
 };
 
 //-------------------------------------
-//        Methods
+//       Game  Methods
 //-------------------------------------
 
 void play_game();                                       // start game
