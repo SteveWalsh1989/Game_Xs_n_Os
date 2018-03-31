@@ -35,7 +35,12 @@ typedef enum Bool boolean;
 //-------------------------------------
 enum Bool   { False, True };
 
-enum status { P1_TURN, P2_TURN, P1_WON, P2_WON, DRAW };
+enum status { P1_TURN ,
+              P2_TURN ,
+              P1_WON  ,
+              P2_WON  ,
+              DRAW
+            };
 
 //-------------------------------------
 //        Structure
