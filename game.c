@@ -59,15 +59,25 @@ void play_game()
 
         int col = -1;                                                     // initialise variable to store column number
 
-        get_row_col(&row, &col);                                          // get move from user
+        bool freeSpace = False;                                           // for valid command loop
 
-        process_move(p_game_info, &row, &col);                            // process users move to update board
+        while (!freeSpace) {
 
-        printf("\n\nTEST: play_game: Move:   row = %d \t column = %d", row, col); // TEST : display row and column for user move
+            get_row_col(&row, &col);                                              // get move from user
 
+            if (p_game_info->board[row][col] == SPACE) {                          // Scenario 1:  space is free
 
+                process_move(p_game_info, &row, &col);                            // process users move to update board
+
+                freeSpace = True;                                                 // if valid command  exits loop
+
+            } else {                                                              //  Scenario 2: space already taken
+
+                printf("\n\n\tInvalid Move: Space already taken \n\n");           // print invalid move message to user
+
+            }
+        }
     }
-
 }
 /**
  * initialise_game
@@ -205,14 +215,26 @@ void get_row_col(int* row, int*column){
 
     printf("\n\t" );                                                    // new line
 
-    printf("Enter Move: " );                                            // prompt player to enter move
+    bool validMove = False;                                             // store state if valid command entered
 
-    int move =  -1;                                                     // initialize user move variable
+    int move = -1;                                                      // initialize user move variable
 
-    scanf ("%d",&move);                                                 // store users move
+    while(!validMove) {                                                 // loops while validMove = False
 
-    int dump = getchar();                                               // clear enter key
+        printf("Enter Move: ");                                         // prompt player to enter move
 
+        scanf("%d", &move);                                             // store users move
+
+        int dump = getchar();                                           // clear enter key
+
+        if( move > -1 && move < 9) {                                    // checks if move is in valid range
+
+            validMove = True;                                           // if valid exits loop
+
+        } else {
+            printf("\n\n\tInvalid Move: Enter number between 0 - 8 and press 'Enter' \n\n"); // print invalid move message to user
+        }
+    }
     if(move == 0 ) {                                                    // Scenario 1: user enters 0 : set row = 0 column = 0
         *row    = 0;
         *column = 0;
@@ -249,9 +271,6 @@ void get_row_col(int* row, int*column){
         *row    = 2;
         *column = 2;
 
-    } else {                                                            // Scenario 10: user enters invalid command
-        printf("Error: Invalid Move Entered");
-
     }
 }
 
@@ -266,20 +285,14 @@ void get_row_col(int* row, int*column){
  */
 void process_move(struct game* game_info, int* row, int* col){
 
-    printf("\n\nTEST: process_move: Move:   row = %d \t column = %d", *row, *col); // TEST : display row and column for user move
-
-    if (game_info->status == P1_TURN){                              // Scenario 1: Player 1's turn
+    if (game_info->status == P1_TURN){                             // Scenario 1: Player 1's turn
 
         game_info->board[*row][*col] = X_SYMBOL;                   // set position to X
 
-    } else if (game_info->status == P2_TURN){                       // Scenario 2: Player 2's turn
+    } else if (game_info->status == P2_TURN){                      // Scenario 2: Player 2's turn
 
         game_info->board[*row][*col] = O_SYMBOL;                   // set position to 0
-
-
     }
-
-
 }
 
 
