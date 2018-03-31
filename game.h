@@ -15,10 +15,19 @@
 
 
 #ifndef NOUGHTS_AND_CROSSES_GAME_GAME_H
+
 #define NOUGHTS_AND_CROSSES_GAME_GAME_H
 
 
+
+//-------------------------------------
+//   Define Constants
+//-------------------------------------
 #define MAX_NAME_LEN 50
+#define SPACE '-'
+#define X_SYMBOL 'X'
+#define O_SYMBOL '0'
+
 typedef enum Bool boolean;
 
 //-------------------------------------
@@ -26,8 +35,7 @@ typedef enum Bool boolean;
 //-------------------------------------
 enum Bool   { False, True };
 
-
-
+enum status { P1_TURN, P2_TURN, P1_WON, P2_WON, DRAW };
 
 //-------------------------------------
 //        Structure
@@ -43,8 +51,13 @@ struct game {
 //        Methods
 //-------------------------------------
 
-void play_game();
+void play_game();                                       // start game
 
+void initialise_game(struct game* , char* , char* );    // initialise structure
+
+void draw_banner();                                     // display banner
+
+void display_board( char board[3][3]);                  // display board
 
 
 
