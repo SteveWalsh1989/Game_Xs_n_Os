@@ -156,9 +156,9 @@ void initialise_game(struct game* p_game_info, char* name1, char* name2)
  */
 void draw_banner(){
 
-   // for(int i = 0; i <=15; i++){                                              // print 15 empty lines : Defined in project spec
-   //     printf("\n");                                                         // commenting out whilst building program
-   // }
+  //  for(int i = 0; i <=15; i++){                                              // print 15 empty lines : Defined in project spec
+  //      printf("\n");                                                         // commenting out whilst building program
+  // }
     printf("\n   -------------------       ");
     printf("\n       Game Status           ");                                  // prints banner
     printf("\n   -------------------       ");
@@ -283,43 +283,13 @@ void get_row_col(int* row, int*column){
             printf("\n\n\tInvalid Move: Enter number between 0 - 8 and press 'Enter' \n\n"); // print invalid move message to user
         }
     }
-    if(move == 0 ) {                                                    // Scenario 1: user enters 0 : set row = 0 column = 0
-        *row    = 0;
-        *column = 0;
 
-    } else  if(move == 1 ) {                                            // Scenario 2: user enters 1 : set row = 0 column = 1
-        *row    = 0;
-        *column = 1;
+    *row    = move/3;                                                   // sets row value
 
-    } else if(move == 2 ) {                                             // Scenario 3: user enters 2 : set row = 0 column = 2
-        *row    = 0;
-        *column = 2;
+    *column = move%3;                                                   // sets column value
 
-    } else if(move == 3 ) {                                             // Scenario 4: user enters 3 : set row = 1 column = 0
-        *row    = 1;
-        *column = 0;
 
-    } else if(move == 4 ) {                                             // Scenario 5: user enters 4 : set row = 1 column = 1
-        *row    = 1;
-        *column = 1;
 
-    } else if(move == 5 ) {                                             // Scenario 6: user enters 5 : set row = 1 column = 2
-        *row    = 1;
-        *column = 2;
-
-    } else if(move == 6 ) {                                             // Scenario 7: user enters 6 : set row = 2 column = 0
-        *row    = 2;
-        *column = 0;
-
-    } else if(move == 7 ) {                                             // Scenario 8: user enters 7 : set row = 2 column = 1
-        *row    = 2;
-        *column = 1;
-
-    } else if(move == 8 ) {                                             // Scenario 9: user enters 8 : set row = 2 column = 2
-        *row    = 2;
-        *column = 2;
-
-    }
 }
 
 /**
@@ -359,42 +329,42 @@ void check_winner(struct game* game_info){
     //-------------------------------------
     //       Check for Player 1
     //-------------------------------------
-        if((game_info->board[0][0] == O_SYMBOL) && (game_info->board[0][1]== O_SYMBOL) && (game_info->board[0][2] == X_SYMBOL)) {            // Scenario 1: ( 0 1 2 )
+        if((game_info->board[0][0] == X_SYMBOL) && (game_info->board[0][1]== X_SYMBOL) && (game_info->board[0][2] == X_SYMBOL)) {            // Scenario 1: ( 0 1 2 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[1][0]== O_SYMBOL)&& (game_info->board[1][1]== O_SYMBOL) && (game_info->board[1][2] == X_SYMBOL)){        // Scenario 2: ( 3 4 5 )
+        } else if((game_info->board[1][0]== X_SYMBOL)&& (game_info->board[1][1]== X_SYMBOL) && (game_info->board[1][2] == X_SYMBOL)){        // Scenario 2: ( 3 4 5 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[2][0]== O_SYMBOL) && (game_info->board[2][1]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 3: ( 6 7 8 )
+        } else if((game_info->board[2][0]== X_SYMBOL) && (game_info->board[2][1]== X_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 3: ( 6 7 8 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[0][0]== O_SYMBOL) && (game_info->board[1][0]== O_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 4: ( 0 3 6 )
+        } else if((game_info->board[0][0]== X_SYMBOL) && (game_info->board[1][0]== X_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 4: ( 0 3 6 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[0][1]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][1] == X_SYMBOL)){       // Scenario 5: ( 1 4 7 )
+        } else if((game_info->board[0][1]== X_SYMBOL) && (game_info->board[1][1]== X_SYMBOL) && (game_info->board[2][1] == X_SYMBOL)){       // Scenario 5: ( 1 4 7 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[0][2]== O_SYMBOL) && (game_info->board[1][2]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 6: ( 2 5 8 )
+        } else if((game_info->board[0][2]== X_SYMBOL) && (game_info->board[1][2]== X_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 6: ( 2 5 8 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[0][0]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 7: ( 0 4 8 )
+        } else if((game_info->board[0][0]== X_SYMBOL) && (game_info->board[1][1]== X_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 7: ( 0 4 8 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
 
-        } else if((game_info->board[0][2]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 8: ( 2 4 6 )
+        } else if((game_info->board[0][2]== X_SYMBOL) && (game_info->board[1][1]== X_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 8: ( 2 4 6 )
 
             game_info->status = P1_WON;
             game_info->finished = True;
