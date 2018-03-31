@@ -42,54 +42,53 @@ void play_game()
     //        Starting game
     //-------------------------------------
 
-    initialise_game (p_game_info, "    John", "Annie");                   // initialise the game
+    initialise_game (p_game_info, "    John", "Annie");                           // initialise the game
 
-    while(!p_game_info->finished) {                                       // keep looping while game is not finished
+        while (!p_game_info->finished) {                                          // keep looping while game is not finished
 
-        draw_banner();                                                    // display games banner
+                draw_banner();                                                    // display games banner
 
-        display_board(p_game_info->board);                                // display board
+                display_board(p_game_info->board);                                // display board
 
-        print_status(p_game_info);                                        // display game state
+                print_status(p_game_info);                                        // display game state
 
-        display_board_positions();                                        // display board positions
+                display_board_positions();                                        // display board positions
 
-        int row = -1;                                                     // initialise variable to store row number
+                int row = -1;                                                     // initialise variable to store row number
 
-        int col = -1;                                                     // initialise variable to store column number
+                int col = -1;                                                     // initialise variable to store column number
 
-        bool validMove = False;                                           // for valid command loop
+                bool validMove = False;                                           // for valid command loop
 
-        while (!validMove) {                                              // keeps looping if move entered is not valid
+                while (!validMove) {                                              // keeps looping if move entered is not valid
 
-            get_row_col(&row, &col);                                      // get move from user
+                    get_row_col(&row, &col);                                      // get move from user
 
-            if (p_game_info->board[row][col] == SPACE) {                  // Scenario 1:  space is free
+                    if (p_game_info->board[row][col] == SPACE) {                  // Scenario 1:  space is free
 
-                process_move(p_game_info, &row, &col);                    // process users move to update board
+                        process_move(p_game_info, &row, &col);                    // process users move to update board
 
-                validMove = True;                                         // if valid command  exits loop
+                        validMove = True;                                         // if valid command  exits loop
 
-                if(p_game_info->status == P1_TURN) {                      // Scenario 1: Player 1's turn
+                        if (p_game_info->status == P1_TURN) {                      // Scenario 1: Player 1's turn
 
-                    p_game_info->status = P2_TURN;                        // change status of turn to Player 2
+                            p_game_info->status = P2_TURN;                        // change status of turn to Player 2
 
-                } else if (p_game_info->status == P2_TURN) {              // Scenario 1: Player 2's turn
+                        } else if (p_game_info->status == P2_TURN) {              // Scenario 1: Player 2's turn
 
-                    p_game_info->status = P1_TURN;                        // change status of turn to Player 1
-                }
-            } else {                                                      //  Scenario 2: space already taken
+                            p_game_info->status = P1_TURN;                        // change status of turn to Player 1
+                        }
+                    } else {                                                      //  Scenario 2: space already taken
 
-                printf("\n\n\tInvalid Move: Space already taken \n\n");   // print invalid move message to user
+                        printf("\n\n\tInvalid Move: Space already taken \n\n");   // print invalid move message to user
+                    }
+                 }
+            check_winner(p_game_info);                                            // check if there was a winner
 
-            }
-        }
-        check_winner(p_game_info);                                        // check if there was a winner
     }
+    display_board(p_game_info->board);                                            // display board
 
-    display_board(p_game_info->board);                                    // display board
-
-    print_status(p_game_info);                                            // display game state
+    print_status(p_game_info);                                                    // display game state
 
 
 }
@@ -226,6 +225,15 @@ void display_board_positions (){
 
 }
 
+/**
+ * get_row_col
+ *
+ * Stores input from user if valid and assigns to row and col
+ *
+ *
+ * @param row    : row number
+ * @param column : column number
+ */
 void get_row_col(int* row, int*column){
 
     printf("\n\t" );                                                    // new line
@@ -310,7 +318,17 @@ void process_move(struct game* game_info, int* row, int* col){
     }
 }
 
-
+/**
+ * check_winner
+ *
+ * For both player 1 and player 2
+ * Checks if player has their symbol in a winning order
+ *
+ * If they do it sets status to  which Player Won
+ * and ends the game
+ *
+ * @param game_info  : : board to be updated
+ */
 void check_winner(struct game* game_info){
 
     //-------------------------------------

@@ -35,21 +35,29 @@ typedef enum Bool boolean;
 //-------------------------------------
 enum Bool   { False, True };
 
-enum status { P1_TURN ,
-              P2_TURN ,
-              P1_WON  ,
-              P2_WON  ,
-              DRAW
+enum status { P1_TURN ,                                // if Player 1's turn
+
+              P2_TURN ,                                // if Player 2's turn
+
+              P1_WON  ,                                // if Player 1 won game
+
+              P2_WON  ,                                // if Player 2 won game
+
+              DRAW                                     // if game was a draw
             };
 
 //-------------------------------------
 //        Structure
 //-------------------------------------
-struct game {
-    char board[3][3];
-    char playerNames[2][MAX_NAME_LEN];
-    int status;
-    boolean finished;
+struct game {                                           // stores game structure
+
+    char board[3][3];                                   // stores moves
+
+    char playerNames[2][MAX_NAME_LEN];                  // stores 2 players names
+
+    int status;                                         // holds status of the game
+
+    boolean finished;                                   // holds if game is finished
 };
 
 //-------------------------------------
@@ -72,7 +80,7 @@ void get_row_col(int* , int*)  ;                        // store player move
 
 void process_move(struct game* , int* , int* );         // process users move
 
-void check_winner(struct game*);                  // checks if there was a winner
+void check_winner(struct game*);                        // checks if there was a winner
 
 
 
