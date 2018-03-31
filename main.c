@@ -23,21 +23,13 @@
 //-------------------------------------
 //       Import Statements
 //-------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
+
 #include "game.h"
 
 int main(int argc, char* argv[])
 {
 
-
-
-   play_game();         // Play the game
-
-
-
-
-
+    play_game();                      // Play the game
 
     return 0;
 }

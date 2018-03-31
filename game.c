@@ -72,11 +72,11 @@ void play_game()
 
                 if(p_game_info->status == P1_TURN) {                      // Scenario 1: Player 1's turn
 
-                    p_game_info->status = P2_TURN;                         // change status of turn to Player 2
+                    p_game_info->status = P2_TURN;                        // change status of turn to Player 2
 
                 } else if (p_game_info->status == P2_TURN) {              // Scenario 1: Player 2's turn
 
-                    p_game_info->status = P1_TURN;                         // change status of turn to Player 1
+                    p_game_info->status = P1_TURN;                        // change status of turn to Player 1
                 }
             } else {                                                      //  Scenario 2: space already taken
 
@@ -84,7 +84,14 @@ void play_game()
 
             }
         }
+        check_winner(p_game_info);                                        // check if there was a winner
     }
+
+    display_board(p_game_info->board);                                    // display board
+
+    print_status(p_game_info);                                            // display game state
+
+
 }
 /**
  * initialise_game
@@ -167,6 +174,7 @@ void display_board( char board[3][3]){
 void print_status(struct game* p_game_info) {
 
     printf("\n\n\n\t");                                                                     // create new line for readability
+
 
     if( (p_game_info->status == P1_TURN) && (p_game_info->finished == False)) {             // Scenario 1: Player 1's turn        ( 0 0 )
 
@@ -303,3 +311,95 @@ void process_move(struct game* game_info, int* row, int* col){
 }
 
 
+void check_winner(struct game* game_info){
+
+    //-------------------------------------
+    //       Check for Player 1
+    //-------------------------------------
+        if((game_info->board[0][0] == O_SYMBOL) && (game_info->board[0][1]== O_SYMBOL) && (game_info->board[0][2] == X_SYMBOL)) {            // Scenario 1: ( 0 1 2 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[1][0]== O_SYMBOL)&& (game_info->board[1][1]== O_SYMBOL) && (game_info->board[1][2] == X_SYMBOL)){        // Scenario 2: ( 3 4 5 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[2][0]== O_SYMBOL) && (game_info->board[2][1]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 3: ( 6 7 8 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][0]== O_SYMBOL) && (game_info->board[1][0]== O_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 4: ( 0 3 6 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][1]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][1] == X_SYMBOL)){       // Scenario 5: ( 1 4 7 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][2]== O_SYMBOL) && (game_info->board[1][2]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 6: ( 2 5 8 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][0]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][2] == X_SYMBOL)){       // Scenario 7: ( 0 4 8 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][2]== O_SYMBOL) && (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][0] == X_SYMBOL)){       // Scenario 8: ( 2 4 6 )
+
+            game_info->status = P1_WON;
+            game_info->finished = True;
+
+        }
+    //-------------------------------------
+    //       Check for Player 2
+    //-------------------------------------
+        if((game_info->board[0][0] == O_SYMBOL) && (game_info->board[0][1]== O_SYMBOL) && (game_info->board[0][2] == O_SYMBOL)) {            // Scenario 1: ( 0 1 2 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[1][0] == O_SYMBOL) && (game_info->board[1][1] == O_SYMBOL)&& (game_info->board[1][2] == O_SYMBOL)){      // Scenario 2: ( 3 4 5 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[2][0]== O_SYMBOL) && (game_info->board[2][1]== O_SYMBOL) && (game_info->board[2][2] == O_SYMBOL)){       // Scenario 3: ( 6 7 8 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][0] == O_SYMBOL)&& (game_info->board[1][0] == O_SYMBOL)&& (game_info->board[2][0] == O_SYMBOL)){       // Scenario 4: ( 0 3 6 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][1] == O_SYMBOL)&& (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][1] == O_SYMBOL)){       // Scenario 5: ( 1 4 7 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][2]== O_SYMBOL) && (game_info->board[1][2]== O_SYMBOL) && (game_info->board[2][2] == O_SYMBOL)){       // Scenario 6: ( 2 5 8 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][0] == O_SYMBOL)&& (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][2] == O_SYMBOL)){       // Scenario 7: ( 0 4 8 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        } else if((game_info->board[0][2] == O_SYMBOL)&& (game_info->board[1][1]== O_SYMBOL) && (game_info->board[2][0] == O_SYMBOL)){       // Scenario 8: ( 2 4 6 )
+
+            game_info->status = P2_WON;
+            game_info->finished = True;
+
+        }
+
+}

@@ -72,6 +72,11 @@ void get_row_col(int* , int*)  ;                        // store player move
 
 void process_move(struct game* , int* , int* );         // process users move
 
+void check_winner(struct game*);                  // checks if there was a winner
+
+
+
+
 #endif //NOUGHTS_AND_CROSSES_GAME_GAME_H
 
 
