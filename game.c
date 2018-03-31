@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <sys/time.h>
 #include "game.h"
 
 
@@ -32,59 +33,73 @@
  */
 void play_game()
 {
-    struct game* p_game_info = 0;                                         //  create structure for game info
+    struct game* p_game_info = 0;                                                       //  create structure for game info
 
-    p_game_info = (struct game * ) malloc(sizeof(struct game));           // create pointer to malloc structure for game info
-
-   //  printf("Structure pointer is: %p", p_game_info ) ;                 // TEST : Prints pointer to structure in console
+    p_game_info = (struct game * ) malloc(sizeof(struct game));                         // create pointer to malloc structure for game info
 
     //-------------------------------------
     //        Starting game
     //-------------------------------------
 
-    initialise_game (p_game_info, "    John", "Annie");                           // initialise the game
+    initialise_game (p_game_info, "    John", "Annie");                                 // initialise the game
 
-        while (!p_game_info->finished) {                                          // keep looping while game is not finished
+    int numMoves = 0;
 
-                draw_banner();                                                    // display games banner
+        while (!p_game_info->finished) {                                                // keep looping while game is not finished
 
-                display_board(p_game_info->board);                                // display board
+                draw_banner();                                                          // display games banner
 
-                print_status(p_game_info);                                        // display game state
+                display_board(p_game_info->board);                                      // display board
 
-                display_board_positions();                                        // display board positions
+                print_status(p_game_info);                                              // display game state
 
-                int row = -1;                                                     // initialise variable to store row number
+                display_board_positions();                                              // display board positions
 
-                int col = -1;                                                     // initialise variable to store column number
+                int row = -1;                                                           // initialise variable to store row number
 
-                bool validMove = False;                                           // for valid command loop
+                int col = -1;                                                           // initialise variable to store column number
 
-                while (!validMove) {                                              // keeps looping if move entered is not valid
+                bool validMove = False;                                                 // for valid command loop
 
-                    get_row_col(&row, &col);                                      // get move from user
+                while (!validMove) {                                                    // keeps looping if move entered is not valid
 
-                    if (p_game_info->board[row][col] == SPACE) {                  // Scenario 1:  space is free
+                    get_row_col(&row, &col);                                            // get move from user
 
-                        process_move(p_game_info, &row, &col);                    // process users move to update board
+                    if (p_game_info->board[row][col] == SPACE) {                        // Scenario 1:  space is free
 
-                        validMove = True;                                         // if valid command  exits loop
+                        process_move(p_game_info, &row, &col);                          // process users move to update board
 
-                        if (p_game_info->status == P1_TURN) {                      // Scenario 1: Player 1's turn
+                        validMove = True;                                               // if valid command  exits loop
 
-                            p_game_info->status = P2_TURN;                        // change status of turn to Player 2
+                        if (p_game_info->status == P1_TURN) {                           // Scenario 1: Player 1's turn
 
-                        } else if (p_game_info->status == P2_TURN) {              // Scenario 1: Player 2's turn
+                            p_game_info->status = P2_TURN;                              // change status of turn to Player 2
 
-                            p_game_info->status = P1_TURN;                        // change status of turn to Player 1
+                        } else if (p_game_info->status == P2_TURN) {                    // Scenario 1: Player 2's turn
+
+                            p_game_info->status = P1_TURN;                              // change status of turn to Player 1
                         }
-                    } else {                                                      //  Scenario 2: space already taken
+                    } else {                                                            //  Scenario 2: space already taken
 
-                        printf("\n\n\tInvalid Move: Space already taken \n\n");   // print invalid move message to user
+                        printf("\n\n\tInvalid Move: Space already taken \n\n");         // print invalid move message to user
                     }
                  }
-            check_winner(p_game_info);                                            // check if there was a winner
 
+            check_winner(p_game_info);                                                  // check if there was a winner
+
+            if((p_game_info->status == P1_TURN) || (p_game_info->status == P2_TURN) ) { // if still players turn
+
+                numMoves++;                                                             // increment number of moves
+
+                if ( numMoves == 9) {                                                   // checks if all spaces taken by number of moves
+
+                    p_game_info->status = DRAW;                                         // sets status of game to draw
+
+                    p_game_info->finished=True;                                         // sets status of finished to true
+
+                }
+
+            }
     }
     display_board(p_game_info->board);                                            // display board
 
@@ -109,8 +124,18 @@ void initialise_game(struct game* p_game_info, char* name1, char* name2)
 
     p_game_info->finished = False;                                          // set game status finished to be false
 
-    p_game_info->status   = P1_TURN;                                        // set status to be player 1's turn
+    srand ( time(NULL) );                                                   // For randomising which Player has first turn
 
+    int num = rand() % (2);                                                 // create random int or 1 or 2
+
+    if ( num == 1 ) {                                                       // Scenario 1: If int is 1
+
+        p_game_info->status = P1_TURN;                                      // set status to be player 1's turn
+
+    } else {                                                                // Scenario 2: If int is 2
+
+        p_game_info->status = P2_TURN;                                      // set status to be player 2's turn
+    }
     for(int innerIndex = 0; innerIndex < 4; innerIndex++){                  // loop for first coord
 
         for (int outerIndex = 0; outerIndex < 4; outerIndex++) {            // loop for second coord
