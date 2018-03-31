@@ -66,7 +66,7 @@ void display_board( char board[3][3]);                  // display board
 
 void print_status(struct game*);                        // displays current game state
 
-
+void display_board_positions() ;                        // display board positions
 
 
 #endif //NOUGHTS_AND_CROSSES_GAME_GAME_H

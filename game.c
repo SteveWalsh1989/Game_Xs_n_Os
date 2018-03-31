@@ -51,6 +51,8 @@ void play_game()
 
     print_status(p_game_info);                                  // display game state
 
+    display_board_positions();                                  // display board positions
+
 }
 /**
  * initialise_game
@@ -158,5 +160,30 @@ void print_status(struct game* p_game_info) {
 
 }
 
+/**
+ * display_board_positions
+ *
+ * Displays board with positions player can select
+ */
+void display_board_positions (){
+
+    printf("\n   -------------------       ");
+    printf("\n      Select a Move          ");     // prints banner
+    printf("\n   -------------------       ");
+
+    printf("\n\t  0  |  1  |  2   " );
+
+    printf("\n\t----- ----- ----- ");
+
+    printf("\n\t  3  |  4  |  5   " );
+
+    printf("\n\t----- ----- ----- ");
+
+    printf("\n\t  6  |  7  |  8   " );
+
+    printf("\n\n");                                // create new line
+
+
+}
 
 
